@@ -9,7 +9,7 @@
 
 
 .TodoWrapper {
-  background-color: #F08787; /* semi-transparent white */
+  background-color: #F08787;
   padding: 20px;
   border-radius: 25px;
   max-width: 600px;
@@ -22,7 +22,7 @@
   color: white;
 }
 
-/* 3. Style for the Todo items */
+
 .Todo {
   display: flex;
   justify-content: space-between;
@@ -35,14 +35,14 @@
 }
 
 
-/* 4. Style for the Todo form */
+
 .TodoForm, .EditTodoForm {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-/* 5. Input box inside forms */
+
 .TodoForm input, .EditTodoForm input {
   flex: 1;
   padding: 10px;
@@ -51,7 +51,7 @@
   background-color: rgb(225, 225, 225, 0.99);
 }
 
-/* 6. Buttons inside forms */
+
 .TodoForm button, .EditTodoForm button {
   padding: 10px 15px;
   border-radius: 5px;
@@ -62,7 +62,7 @@
   font-weight: bold;
 }
 
-/* 7. Button hover effect */
+
 .TodoForm button:hover, .EditTodoForm button:hover {
   background-color: #e0e0e0;
 }
