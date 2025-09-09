@@ -1,38 +1,92 @@
+
 .App {
+  background-color: #FFC7A7;
+  color: black;
+  min-height: 73vh;
+  padding: 100px;
+  font-family: Century Gothic;
+}
+
+
+.TodoWrapper {
+  background-color: #F08787; /* semi-transparent white */
+  padding: 20px;
+  border-radius: 25px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.TodoWrapper h1{
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-family: Papyrus, fantasy;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* 3. Style for the Todo items */
+.Todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.2);;
+  border-radius: 10px;
+  margin: 15px 0;
+  font-family: Brush Script MT, cursive;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* 4. Style for the Todo form */
+.TodoForm, .EditTodoForm {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* 5. Input box inside forms */
+.TodoForm input, .EditTodoForm input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(225, 225, 225, 0.99);
+}
+
+/* 6. Buttons inside forms */
+.TodoForm button, .EditTodoForm button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(225, 225, 225, 0.99);
+  color: #0d6efd;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* 7. Button hover effect */
+.TodoForm button:hover, .EditTodoForm button:hover {
+  background-color: #e0e0e0;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.filters button:hover {
+  background-color: #ffffff33;
 }
