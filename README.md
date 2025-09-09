@@ -5,7 +5,7 @@ You can add tasks, mark them as completed, edit, delete, and filter the out.
 
 ## Installation:
 I have used fontawesome icons. Use the below code for installation purpose:
-npm i --save @fortawesome/fontawesome-svg-core
+npm i --save @fortawesome/fontawesome-svg-core<br>
 npm i --save @fortawesome/react-fontawesome@latest
 npm install @awesome.me/kit-KIT_CODE@latest
 npm i --save @fortawesome/free-solid-svg-icons
