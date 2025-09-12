@@ -1,31 +1,69 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TodoForm } from "./TodoForm";
-import { v4 as uuidv4 } from "uuid";
 import { Todo } from "./Todo";
 import { EditTodoForm } from "./EditTodoForm";
 
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState([]);
-
   const [filter, setFilter] = useState("all");
 
-  const addTodo = (todo) => {
-    setTodos([
-      ...todos,
-      { id: uuidv4(), task: todo, completed: false, isEditing: false },
-    ]);
+  const API_URL = process.env.REACT_APP_API_URL;
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const res = await fetch(`${API_URL}/todos/`);
+        const data = await res.json();
+        setTodos(data);
+      } catch (err) {
+        console.error("Failed to fetch todos:", err);
+      }
+    };
+    fetchTodos();
+  }, [API_URL]);
+
+  const addTodo = async (todo) => {
+    try {
+      const res = await fetch(`${API_URL}/todos/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ task: todo }),
+      });
+      const newTodo = await res.json();
+      setTodos([...todos, { ...newTodo, isEditing: false }]);
+    } catch (err) {
+      console.error("Failed to add todo:", err);
+    }
   };
 
-  const toggleComplete = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
+  const toggleComplete = async (id) => {
+    const todo = todos.find((t) => t.id === id);
+    if (!todo) return;
+    try {
+      const res = await fetch(`${API_URL}/todos/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ completed: !todo.completed }),
+      });
+      const updated = await res.json();
+
+      setTodos((prev) =>
+        prev.map((t) =>
+          t.id === id ? { ...updated, isEditing: t.isEditing } : t
+        )
+      );
+    } catch (err) {
+      console.error("Toggle complete failed:", err);
+    }
   };
 
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const deleteTodo = async (id) => {
+    try {
+      await fetch(`${API_URL}/todos/${id}`, { method: "DELETE" });
+      setTodos(todos.filter((todo) => todo.id !== id));
+    } catch (err) {
+      console.error("Delete failed:", err);
+    }
   };
 
   const editTodo = (id) => {
@@ -36,12 +74,20 @@ export const TodoWrapper = () => {
     );
   };
 
-  const editTask = (task, id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
-      )
-    );
+  const editTask = async (task, id) => {
+    try {
+      const res = await fetch(`${API_URL}/todos/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ task }),
+      });
+      const updated = await res.json();
+      setTodos((prev) =>
+        prev.map((t) => (t.id === id ? { ...updated, isEditing: false } : t))
+      );
+    } catch (err) {
+      console.error("Edit failed:", err);
+    }
   };
 
   const filteredTodos = todos.filter((todo) => {
